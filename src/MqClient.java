@@ -8,14 +8,29 @@ import java.net.Socket;
  * 访问消息队列的客户端
  */
 public class MqClient {
-
+//    String  static key ="asdad";
     //生产消息
+    public static int heartbeat() throws Exception {
+        //本地的的BrokerServer.SERVICE_PORT 创建SOCKET
+        Socket socket = new Socket(InetAddress.getLocalHost(), BrokerServer.SERVICE_PORT);
+        try (
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream())
+
+        ) {
+            out.println("HEARTBEAT:");
+            out.flush();
+        }
+        return 1;
+    }
     public static void produce(String message) throws Exception {
         //本地的的BrokerServer.SERVICE_PORT 创建SOCKET
         Socket socket = new Socket(InetAddress.getLocalHost(), BrokerServer.SERVICE_PORT);
         try (
                 PrintWriter out = new PrintWriter(socket.getOutputStream())
         ) {
+            System.out.println(message);
             out.println(message);
             out.flush();
         }

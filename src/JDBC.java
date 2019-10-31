@@ -86,6 +86,6 @@ public class JDBC {
     {
 //        System.out.println(keys);
 //        AddSer("asdasdf");
-        DeleteSer("asdasdf");
+//        DeleteSer();
     }
 }

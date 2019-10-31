@@ -23,6 +23,7 @@ public class BrokerServer implements Runnable {
                 socket.getInputStream()))) {
             try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                 while (true) {
+//                    System.out.println(in.readLine());
                     String str = in.readLine();
                     if (str == null) {
                         continue;
@@ -38,7 +39,13 @@ public class BrokerServer implements Runnable {
                     } else if (words[0].equals("SEND")) {
                         //接受到的请求包含SEND:字符串 表示生产消息放到消息队列中
                         Broker.produce(words[2],words[1]);
-                    } else {
+                        System.out.println(words[2]+words[1]);
+                    } else if (words[0].equals("HEARTBEAT"))
+                    {
+//                        Broker.produce(words[2],words[1]);
+                        out.println(Broker.heartbeat());
+                    }
+                    else {
                         System.out.println("原始数据:" + str + "没有遵循协议,不提供相关服务");
                     }
                 }

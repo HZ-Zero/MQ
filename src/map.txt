@@ -1,2 +1,0 @@
-prodeuce1 consume1
-prodeuce2 consume2

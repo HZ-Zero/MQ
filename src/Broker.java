@@ -7,7 +7,7 @@ public class Broker {
     private final static int MAX_SIZE = 200;
 
     // 保存消息数据的容器
-    private static ArrayBlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(MAX_SIZE);
+//    private static ArrayBlockingQueue<String> messageQueue = new ArrayBlockingQueue<String>(MAX_SIZE);
     private static Map<String,ArrayBlockingQueue<String> > map = new HashMap<String,ArrayBlockingQueue<String> >();
     // 生产消息
     public static ArrayBlockingQueue<String> creatList(String key)
@@ -31,6 +31,9 @@ public class Broker {
 
         }
 //        return map.get(key);
+    }
+    public static int heartbeat() {
+        return 1;
     }
     public static void produce(String msg,String key) {
         ArrayBlockingQueue<String> mq=creatList(key);
