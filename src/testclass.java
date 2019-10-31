@@ -2,11 +2,6 @@
 
 import org.junit.Test;
 
-import java.io.IOException;
-import java.net.SocketException;
-import java.rmi.ConnectException;
-
-
 public class testclass {
 
     @Test
@@ -43,7 +38,7 @@ public class testclass {
     @Test
     public void test4() throws Exception
     {
-        ProduceClient.produce("ASDASF:","SSSSSSSSSSSSSSSS");
-        ProduceClient.heartbeat();
+        ConsumeClient.consume("ASDASF:");
+        ConsumeClient.heartbeat();
     }
 }

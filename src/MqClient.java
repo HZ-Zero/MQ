@@ -19,7 +19,7 @@ public class MqClient {
                 PrintWriter out = new PrintWriter(socket.getOutputStream())
 
         ) {
-            out.println("HEARTBEAT:");
+            out.println("HEARTBEAT");
             out.flush();
         }
         return 1;

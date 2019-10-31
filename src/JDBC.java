@@ -38,17 +38,27 @@ public class JDBC {
         ArrayList<String> list=new ArrayList<String>();
         Connection conn = JDBC.getConnection();
         Statement stmt = conn.createStatement();
-        String sql = "select msaagekey from mq";
+        String sql = "select messagekey from mq";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
-            String key=rs.getString("msaagekey");
+            String key=rs.getString("messagekey");
             list.add(key);
         }
         return list;
     }
-    private static void Addkey(String key) throws SQLException{
+    private static void Addrecorde(String key,String content) throws SQLException{
         Connection conn = JDBC.getConnection();
-        String sql ="INSERT INTO mq(msaagekey,content,uuid) values(?,?,?)";
+        String sql ="INSERT INTO mq(messagekey,content,uuid) values(?,?,?)";
+        PreparedStatement ptmt = conn.prepareStatement(sql);
+        ptmt.setString(1, key);
+        ptmt.setString(2, content);
+        ptmt.setString(3, UUID.randomUUID().toString().replaceAll("-", ""));
+        ptmt.execute();
+//        return list;
+    }
+    private static void Addrecorde(String key) throws SQLException{
+        Connection conn = JDBC.getConnection();
+        String sql ="INSERT INTO mq(messagekey,content,uuid) values(?,?,?)";
         PreparedStatement ptmt = conn.prepareStatement(sql);
         ptmt.setString(1, key);
         ptmt.setString(2, "");
@@ -62,7 +72,7 @@ public class JDBC {
 //          °üº¬key ´´½¨Ê§°Ü
             return 0;
         } else
-        { JDBC.Addkey(key);
+        { JDBC.Addrecorde(key);
             return 1;
         }
     }
@@ -74,7 +84,7 @@ public class JDBC {
         } else
         {
             Connection conn = JDBC.getConnection();
-            String sql ="DELETE FROM mq WHERE msaagekey= ?";
+            String sql ="DELETE FROM mq WHERE messagekey= ?";
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ptmt.setString(1, key);
             ptmt.execute();
