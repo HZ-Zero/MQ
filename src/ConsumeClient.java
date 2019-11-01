@@ -1,17 +1,11 @@
 public class ConsumeClient {
-
+    public static MqClient client = new MqClient();
     public static String consume(String key) throws Exception {
-        MqClient client = new MqClient();
-//        String message = client.consume();
-        String message = client.consume(key);
-//        while(message  != null) {
-////        String message = client.consume();
-////            String key="SERVICE1:";
-//            System.out.println("获取的消息为：" + message);
-//            message = client.consume(key);
-//        }
-        return message;
-//        }
 
+        String message = client.consume(key);
+        return message;
+    }
+    public static int heartbeat() throws Exception {
+        return client.heartbeat();
     }
 }
