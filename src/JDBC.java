@@ -46,7 +46,7 @@ public class JDBC {
         }
         return list;
     }
-    private static void Addrecorde(String key,String content) throws SQLException{
+    protected static void Addrecorde(String key,String content) throws SQLException{
         Connection conn = JDBC.getConnection();
         String sql ="INSERT INTO mq(messagekey,content,uuid) values(?,?,?)";
         PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -56,26 +56,37 @@ public class JDBC {
         ptmt.execute();
 //        return list;
     }
-    private static void Addrecorde(String key) throws SQLException{
+//    private static void Addrecorde(String key) throws SQLException{
+//        Connection conn = JDBC.getConnection();
+//        String sql ="INSERT INTO mq(messagekey,content,uuid) values(?,?,?)";
+//        PreparedStatement ptmt = conn.prepareStatement(sql);
+//        ptmt.setString(1, key);
+//        ptmt.setString(2, "");
+//        ptmt.setString(3, UUID.randomUUID().toString().replaceAll("-", ""));
+//        ptmt.execute();
+//    }
+    public static String  registration() throws SQLException{
         Connection conn = JDBC.getConnection();
+        String key = UUID.randomUUID().toString().replaceAll("-", "");
         String sql ="INSERT INTO mq(messagekey,content,uuid) values(?,?,?)";
         PreparedStatement ptmt = conn.prepareStatement(sql);
         ptmt.setString(1, key);
         ptmt.setString(2, "");
         ptmt.setString(3, UUID.randomUUID().toString().replaceAll("-", ""));
         ptmt.execute();
-//        return list;
+        return key;
     }
-    public static int AddSer(String key) throws SQLException
-    {
-        if (keys.contains(key)){
-//          包含key 创建失败
-            return 0;
-        } else
-        { JDBC.Addrecorde(key);
-            return 1;
-        }
-    }
+//    public static int AddSer(String key) throws SQLException
+//    {
+//        if (keys.contains(key)){
+////          包含key 创建失败
+//            return 0;
+//        } else
+//        {
+//            JDBC.Addrecorde(key);
+//            return 1;
+//        }
+//    }
     public static int DeleteSer(String key) throws SQLException
     {
         if (!keys.contains(key)){
